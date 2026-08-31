@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polsia — Business Model, Funding and Workflow Analysis</title>
+<style>
+:root{
+  --ink:#1c1c1a; --ink2:#5f5e5a; --ink3:#888780;
+  --line:#e3e1d9; --bg:#ffffff; --surface:#f7f6f1;
+  --blue:#185fa5; --blue-bg:#e6f1fb;
+  --teal:#0f6e56; --teal-bg:#e1f5ee;
+  --amber:#854f0b; --amber-bg:#faeeda;
+  --red:#a32d2d; --red-bg:#fcebeb;
+  --purple:#534ab7; --purple-bg:#eeedfe;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+  font-size:15px; line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:880px; margin:0 auto; padding:56px 32px 80px}
+header{border-bottom:1px solid var(--line); padding-bottom:28px; margin-bottom:40px}
+.kicker{font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink3); margin:0 0 12px}
+h1{font-size:30px; line-height:1.25; font-weight:600; margin:0 0 12px; letter-spacing:-.015em}
+.sub{font-size:16px; color:var(--ink2); margin:0}
+.meta{font-size:13px; color:var(--ink3); margin:18px 0 0}
+h2{font-size:20px; font-weight:600; margin:52px 0 14px; letter-spacing:-.01em; padding-top:8px}
+h3{font-size:15px; font-weight:600; margin:28px 0 8px}
+p{margin:0 0 14px}
+ul,ol{margin:0 0 16px; padding-left:22px}
+li{margin-bottom:7px}
+strong{font-weight:600}
+a{color:var(--blue)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px; background:var(--surface); padding:2px 5px; border-radius:4px}
+
+.callout{border-left:3px solid var(--blue); background:var(--blue-bg); padding:16px 20px; border-radius:0 8px 8px 0; margin:0 0 22px}
+.callout.warn{border-color:var(--red); background:var(--red-bg)}
+.callout.good{border-color:var(--teal); background:var(--teal-bg)}
+.callout p:last-child{margin-bottom:0}
+.callout .lbl{font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:600; color:var(--blue); margin:0 0 6px}
+.callout.warn .lbl{color:var(--red)}
+.callout.good .lbl{color:var(--teal)}
+
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:0 0 26px}
+.card{background:var(--surface); border-radius:10px; padding:16px 18px}
+.card .l{font-size:12px; color:var(--ink2); margin:0 0 6px; line-height:1.4}
+.card .n{font-size:25px; font-weight:600; margin:0; line-height:1.1; letter-spacing:-.02em}
+.card .n.danger{color:var(--red)}
+.card .n.pos{color:var(--teal)}
+.card .f{font-size:11px; color:var(--ink3); margin:6px 0 0}
+
+table{width:100%; border-collapse:collapse; margin:0 0 22px; font-size:14px}
+th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-size:12px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink2); font-weight:600; background:var(--surface)}
+td.num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+tr.hl td{background:var(--red-bg)}
+
+figure{margin:0 0 28px}
+figure svg{display:block; width:100%; height:auto}
+figcaption{font-size:12px; color:var(--ink3); margin-top:10px; line-height:1.5}
+
+.tl{list-style:none; padding:0; margin:0 0 24px}
+.tl li{display:grid; grid-template-columns:130px 1fr; gap:16px; padding:11px 0; border-bottom:1px solid var(--line); margin:0}
+.tl .d{font-size:13px; font-weight:600; color:var(--ink2); font-variant-numeric:tabular-nums}
+.tl .e{font-size:14px}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-bottom:8px}
+@media (max-width:720px){ .two{grid-template-columns:1fr; gap:8px} .tl li{grid-template-columns:100px 1fr} .wrap{padding:36px 20px 60px} h1{font-size:25px} }
+
+footer{margin-top:56px; padding-top:24px; border-top:1px solid var(--line); font-size:12px; color:var(--ink3)}
+footer ol{padding-left:20px} footer li{margin-bottom:4px}
+@media print{
+  body{font-size:10.5pt; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+  h2,h3{page-break-after:avoid; break-after:avoid}
+  figure,table,.callout,.cards,.card{page-break-inside:avoid; break-inside:avoid}
+  tr{page-break-inside:avoid; break-inside:avoid}
+  .wrap{padding:0; max-width:none}
+  header{border-bottom:1px solid #ccc}
+  footer{page-break-before:always}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">Competitive teardown &middot; Internal briefing</p>
+  <h1>Polsia: what it actually sells, how it makes money, and why it raised $30M</h1>
+  <p class="sub">An autonomous AI agent platform that promises to build and run a whole company for you. The demand is real. The customer outcomes are not — and the gap between the two is the whole story.</p>
+  <p class="meta">Prepared 31 August 2026 &middot; All financial figures below are pulled from Polsia's own public live endpoint and cross-checked against press reporting. Sources listed at the end.</p>
+</header>
+
+<h2>0. Why it looks brilliant to everyone else, and feels hollow when you use it</h2>
+
+<p>This is the question worth answering before anything else, because the contradiction is real and it is not in your head. Everyone online says Polsia is extraordinary; you used it and felt nothing. Both are true, and the gap is not an accident — it is the predictable result of six forces that have nothing to do with whether the code is any good.</p>
+
+<figure>
+<svg viewBox="0 0 680 290" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>The gap between what people say about Polsia and what subscribers receive</title>
+<desc>A line chart over four time points. The blue line representing what the hype reflects starts at 90 on day one and falls slowly to 50 by month three. The red line representing what subscribers actually receive starts at 10 and rises slowly to 25. The shaded area between them is the disappointment gap.</desc>
+<path d="M100,76 L260,92 L420,124 L580,140 L580,180 L420,188 L260,196 L100,204 Z" fill="#F1EFE8"/>
+<line x1="100" y1="60" x2="100" y2="212" stroke="#A32D2D" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="110" y="52" dominant-baseline="central" font-size="11" font-weight="600" fill="#791F1F">Reviews are written in the first hour</text>
+<path d="M100,76 L260,92 L420,124 L580,140" fill="none" stroke="#185FA5" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M100,204 L260,196 L420,188 L580,180" fill="none" stroke="#E24B4A" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="100" cy="76" r="4.5" fill="#185FA5"/><circle cx="260" cy="92" r="4.5" fill="#185FA5"/>
+<circle cx="420" cy="124" r="4.5" fill="#185FA5"/><circle cx="580" cy="140" r="4.5" fill="#185FA5"/>
+<circle cx="100" cy="204" r="4.5" fill="#E24B4A"/><circle cx="260" cy="196" r="4.5" fill="#E24B4A"/>
+<circle cx="420" cy="188" r="4.5" fill="#E24B4A"/><circle cx="580" cy="180" r="4.5" fill="#E24B4A"/>
+<text x="300" y="150" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#5F5E5A">The gap</text>
+<line x1="90" y1="224" x2="600" y2="224" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="100" y="238" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">Day 1</text>
+<text x="260" y="238" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">Week 1</text>
+<text x="420" y="238" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">Month 1</text>
+<text x="580" y="238" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">Month 3</text>
+<rect x="100" y="260" width="12" height="12" rx="2" fill="#185FA5"/>
+<text x="120" y="266" dominant-baseline="central" font-size="12" fill="#2C2C2A">What the hype reflects</text>
+<rect x="285" y="260" width="12" height="12" rx="2" fill="#E24B4A"/>
+<text x="305" y="266" dominant-baseline="central" font-size="12" fill="#2C2C2A">What subscribers actually receive</text>
+</svg>
+<figcaption>Figure 0.1 &mdash; Perceived value peaks on day one and declines; what subscribers actually receive grows slowly and never catches up. Every enthusiastic review you have read was written at the left edge of this chart.</figcaption>
+</figure>
+
+<figure>
+<svg viewBox="0 0 680 316" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Two populations give two opposite verdicts on the same product</title>
+<desc>People who talk about Polsia saw the demo and call it extraordinary. People who pay for Polsia lived in month two and beyond, rate it 1.8 out of 5, and 94 percent have left.</desc>
+<text x="40" y="46" dominant-baseline="central" font-size="14" font-weight="600" fill="#0C447C">Who talks about it</text>
+<text x="360" y="46" dominant-baseline="central" font-size="14" font-weight="600" fill="#791F1F">Who pays for it</text>
+<line x1="340" y1="36" x2="340" y2="272" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text x="52" y="78" dominant-baseline="central" font-size="13" fill="#2C2C2A">Journalists and newsletters</text>
+<text x="52" y="100" dominant-baseline="central" font-size="13" fill="#2C2C2A">Podcast hosts</text>
+<text x="52" y="122" dominant-baseline="central" font-size="13" fill="#2C2C2A">VCs writing the thesis</text>
+<text x="52" y="144" dominant-baseline="central" font-size="13" fill="#2C2C2A">The X and LinkedIn audience</text>
+<circle cx="44" cy="78" r="2.5" fill="#185FA5"/><circle cx="44" cy="100" r="2.5" fill="#185FA5"/>
+<circle cx="44" cy="122" r="2.5" fill="#185FA5"/><circle cx="44" cy="144" r="2.5" fill="#185FA5"/>
+<text x="372" y="78" dominant-baseline="central" font-size="13" fill="#2C2C2A">Subscribers running a real business</text>
+<circle cx="364" cy="78" r="2.5" fill="#E24B4A"/>
+<text x="40" y="178" dominant-baseline="central" font-size="11" font-weight="600" fill="#5F5E5A">WHAT THEY EXPERIENCED</text>
+<text x="360" y="178" dominant-baseline="central" font-size="11" font-weight="600" fill="#5F5E5A">WHAT THEY EXPERIENCED</text>
+<rect x="40" y="192" width="266" height="40" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="173" y="212" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#0C447C">The ten-minute demo</text>
+<rect x="360" y="192" width="280" height="40" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+<text x="500" y="212" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#791F1F">Month two and everything after it</text>
+<rect x="40" y="244" width="266" height="52" rx="8" fill="#185FA5"/>
+<text x="173" y="263" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="600" fill="#FFFFFF">"Extraordinary"</text>
+<text x="173" y="281" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#B5D4F4">$250M valuation. Wall Street Journal.</text>
+<rect x="360" y="244" width="280" height="52" rx="8" fill="#A32D2D"/>
+<text x="500" y="263" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="600" fill="#FFFFFF">1.8 out of 5 &middot; 74% one star</text>
+<text x="500" y="281" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#F7C1C1">94% of companies abandoned</text>
+<text x="340" y="306" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#5F5E5A">Same product. Two different populations. Only one of them is still talking.</text>
+</svg>
+<figcaption>Figure 0.2 &mdash; These two verdicts are not in conflict, because they come from two different groups of people. The enthusiasts never ran a company on it. The subscribers did, and most of them left.</figcaption>
+</figure>
+
+<h3>The six forces, compressed to one number each</h3>
+
+<figure>
+<svg viewBox="0 0 680 332" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>The six forces behind the gap, one number each</title>
+<desc>Six boxes summarising why Polsia looks brilliant to everyone else and hollow to users: enthusiasts never paid, value peaks on day one, it fixes not starting, the best feature is invisible, it is built for someone with nothing, and social media rewards spectacle.</desc>
+<rect x="40" y="84" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="130" y="112" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">Enthusiasts never paid</text>
+<text x="130" y="136" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">journalists, VCs and X</text>
+<text x="130" y="166" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">94% have abandoned</text>
+<rect x="240" y="84" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="330" y="112" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">Value peaks on day one</text>
+<text x="330" y="136" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">the ten-minute demo</text>
+<text x="330" y="166" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">47 tasks, 21.3%, $0</text>
+<rect x="440" y="84" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="530" y="112" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">Fixes not starting</text>
+<text x="530" y="136" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">sells activation energy</text>
+<text x="530" y="166" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">$20 buys momentum</text>
+<rect x="40" y="204" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="130" y="232" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">Best feature: invisible</text>
+<text x="130" y="256" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">heartbeat never stops</text>
+<text x="130" y="286" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">only failures show</text>
+<rect x="240" y="204" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="330" y="232" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">Worth most: empty hands</text>
+<text x="330" y="256" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">company-shaped object</text>
+<text x="330" y="286" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">built for that one</text>
+<rect x="440" y="204" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="530" y="232" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">Social rewards the wow</text>
+<text x="530" y="256" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">aislop went viral</text>
+<text x="530" y="286" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">$250M beats +15%</text>
+</svg>
+<figcaption>Figure 0.3 &mdash; The same argument as the six sections above, compressed. Each box carries the one number that makes the point.</figcaption>
+</figure>
+
+<ul>
+<li><strong>The enthusiasts never paid for it.</strong> Every rave you have read came from someone who watched the demo, not someone who ran a business on it. The people who paid have largely left — <strong>only 6.2% of companies ever created are still active</strong>. The enthusiasts bought the story; the subscribers bought the result. Only one group is still talking.</li>
+<li><strong>Its value peaks on day one.</strong> The ten-minute "zero to alive" moment is the best thing it does, and it is the thing every review describes. Everything after is a grind of plausible-looking activity that rarely converts: one documented log ran <strong>47 tasks, 21.3% success, $0 revenue</strong>.</li>
+<li><strong>It fixes not starting, not doing it badly.</strong> Its real product is the removal of activation energy — it collapses the distance between thinking about something and owning a live URL with payment rails into ten minutes and $20. If your bottleneck is quality or judgement, it adds nothing and costs you review time.</li>
+<li><strong>Its best feature is invisible.</strong> The heartbeat keeps working while you sleep, and persistence cannot be felt — only failures can. You notice the wrong-price cold email, not the four hundred things that ran overnight.</li>
+<li><strong>It is built for someone with nothing.</strong> If you already have customers and a working process, it is a slower, less obedient intern that also takes 20% of your revenue and holds your code.</li>
+<li><strong>Social media rewards astonishing, not useful.</strong> "One person, zero employees, $250M" travels; "+15% revenue" does not. Even the "aislop" mockery drove signups on the way past.</li>
+</ul>
+
+<div class="callout">
+  <p class="lbl">So where is it genuinely useful? Three honest use cases</p>
+  <p><strong>Cheap parallel bets.</strong> At $20 a company, the economics of testing twenty ideas at once instead of one idea carefully are genuinely new. Use it as a shotgun for idea validation, not as a business.</p>
+  <p><strong>A business that already works but is under-marketed.</strong> If you have product-market fit and your only problem is that marketing stops when you get busy, the heartbeat is real value — provided you gate what it is allowed to publish.</p>
+  <p><strong>As a specimen.</strong> It is an unusually well-built example of agent orchestration, cross-company memory, and multi-line monetisation design. Worth $20 as research even if you never run a company on it.</p>
+</div>
+
+<div class="callout warn">
+  <p class="lbl">A one-question test</p>
+  <p>Before subscribing, ask: <strong>do I have a project I have been thinking about for three months and never started?</strong></p>
+  <p>If yes, $20 is a reasonable price for finally starting it. If no, Polsia will sell you activity rather than outcomes — and you will join the 94%.</p>
+</div>
+
+<div class="callout">
+  <p class="lbl">Bottom line in five sentences</p>
+  <p><strong>1.</strong> Polsia sells an "AI employee" — a fleet of nine scheduled agents that plan, code, market, sell and support a business end to end, on infrastructure Polsia provisions for you.</p>
+  <p><strong>2.</strong> It monetises four ways: a $20–$1,000/month subscription, roughly $1-per-task credits, a markup on managed ad spend, and a <strong>20% cut of all revenue</strong> its customers' businesses collect.</p>
+  <p><strong>3.</strong> It raised <strong>$30M at a $250M valuation in May 2026</strong> — venture capital led by Sound Ventures, <em>not</em> crowdfunding — with one founder and zero employees.</p>
+  <p><strong>4.</strong> By Polsia's own live numbers, <strong>only 2.6% of its $16M ARR comes from customers' businesses actually earning money.</strong> Customers pay Polsia roughly 7.7&times; more than their AI-run businesses collectively earn.</p>
+  <p><strong>5.</strong> The moat is not the AI. It is the pre-wired money rails, the opinionated defaults, and a monetisation design with four shots at the same user. That part is worth studying. The outcome layer is not.</p>
+</div>
+
+<h2>1. What the business actually is</h2>
+
+<p>Polsia's own headline is "AI that runs your company while you sleep." Its pitch deck is blunter: <em>"Businesses that are not 80+% autonomous in 2026 will die."</em></p>
+
+<p>Functionally it is three products stacked on top of each other, and most commentary only sees the first one:</p>
+
+<ul>
+  <li><strong>A prompt-to-company builder.</strong> You type a business idea — or click "surprise me" and let it choose one for you — and it writes the code and ships a live site.</li>
+  <li><strong>A provisioned business stack.</strong> This is the underrated part. It sets up a web server, a database, a GitHub repo, an email inbox, a Stripe account, a domain and a Meta Ads account. Payment rails and ad rails included, which almost no competing agent tool does.</li>
+  <li><strong>A permanent operating layer.</strong> Nine agents run on a cron-like "heartbeat" — scheduled shifts that keep working between your instructions. This is the founder's stated distinction from prompt-to-app tools: those generate an artifact once, Polsia keeps operating it.</li>
+</ul>
+
+<p>The comparison that lands best: <strong>Shopify makes you the shopkeeper. Polsia tries to make you the chairman</strong> — you supply the idea and the taste, agents supply the labour.</p>
+
+<h3>Yes — "hire your AI employee" means the full commercial function, not just engineering</h3>
+
+<p>This directly answers the question of whether the offer is a comprehensive one. It is. The in-product purchase modal is literally titled <em>"Your AI Employee,"</em> and the roles it covers span the entire go-to-market surface: engineering, bug monitoring, market and competitor research, social posting, cold email outreach, Meta and Google ads with AI-generated UGC creative, customer support inbox, Stripe payments, and self-healing infrastructure — all coordinated by an orchestrator the founder calls the <strong>"CEO agent,"</strong> which wakes nightly, reviews the state of the business, and sets the next day's priorities.</p>
+
+<figure>
+<svg viewBox="0 0 680 346" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Polsia's nine-agent fleet grouped by function</title>
+<desc>An orchestrator CEO agent dispatches work to three clusters: build, grow and run.</desc>
+<defs><marker id="ar1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="210" y="44" width="260" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="340" y="66" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#3C3489">Orchestrator, the "CEO agent"</text>
+<text x="340" y="84" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#534AB7">Wakes nightly, sets tomorrow's priorities</text>
+<path d="M340 100 L340 120 L135 120 L135 132" fill="none" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#ar1)"/>
+<path d="M340 100 L340 132" fill="none" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#ar1)"/>
+<path d="M340 100 L340 120 L545 120 L545 132" fill="none" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#ar1)"/>
+<rect x="40" y="136" width="190" height="190" rx="12" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="135" y="158" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">Build</text>
+<rect x="54" y="176" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#B5D4F4" stroke-width="0.5"/><text x="135" y="194" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#0C447C">Engineering</text>
+<rect x="54" y="220" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#B5D4F4" stroke-width="0.5"/><text x="135" y="238" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#0C447C">Bug monitoring</text>
+<rect x="54" y="264" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#B5D4F4" stroke-width="0.5"/><text x="135" y="282" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#0C447C">Market research</text>
+<rect x="245" y="136" width="190" height="190" rx="12" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="158" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#085041">Grow</text>
+<rect x="259" y="176" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#9FE1CB" stroke-width="0.5"/><text x="340" y="194" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#085041">Social media</text>
+<rect x="259" y="220" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#9FE1CB" stroke-width="0.5"/><text x="340" y="238" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#085041">Cold outreach</text>
+<rect x="259" y="264" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#9FE1CB" stroke-width="0.5"/><text x="340" y="282" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#085041">Meta and Google ads</text>
+<rect x="450" y="136" width="190" height="190" rx="12" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="545" y="158" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#633806">Run</text>
+<rect x="464" y="176" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#FAC775" stroke-width="0.5"/><text x="545" y="194" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#633806">Support inbox</text>
+<rect x="464" y="220" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#FAC775" stroke-width="0.5"/><text x="545" y="238" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#633806">Payments, Stripe</text>
+<rect x="464" y="264" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#FAC775" stroke-width="0.5"/><text x="545" y="282" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#633806">Infra self-healing</text>
+</svg>
+<figcaption>Figure 1 — The nine-agent fleet. Note that six of the nine roles are commercial, not technical. Polsia is positioned as a go-to-market team first and an engineering team second.</figcaption>
+</figure>
+
+<h2>2. The operating workflow</h2>
+
+<p>Below is the full loop, from idea to invoice. The single most important feature of this diagram is what is <em>missing</em> between step 1 and step 2.</p>
+
+<figure>
+<svg viewBox="0 0 680 584" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Polsia end-to-end operating workflow</title>
+<desc>Five-stage flow from idea submission through provisioning, scheduled agent execution, daily summaries, and three-part billing, with the missing demand validation step annotated.</desc>
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="170" y="44" width="340" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="340" y="66" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#0C447C">1. You submit a business idea</text>
+<text x="340" y="84" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#185FA5">Or click "surprise me" and it picks one</text>
+<rect x="40" y="98" width="114" height="64" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text x="52" y="118" dominant-baseline="central" font-size="11" font-weight="600" fill="#791F1F">Gap: it builds</text>
+<text x="52" y="134" dominant-baseline="central" font-size="11" fill="#A32D2D">before it ever</text>
+<text x="52" y="150" dominant-baseline="central" font-size="11" fill="#A32D2D">validates demand</text>
+<line x1="156" y1="130" x2="330" y2="130" stroke="#A32D2D" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="340" y1="100" x2="340" y2="158" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#ar2)"/>
+<rect x="170" y="160" width="340" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="340" y="182" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#3C3489">2. It provisions the whole stack</text>
+<text x="340" y="200" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#534AB7">Server, GitHub, inbox, Stripe, domain, Meta Ads</text>
+<line x1="340" y1="216" x2="340" y2="274" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#ar2)"/>
+<rect x="170" y="276" width="340" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="298" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#085041">3. Nine agents run on a heartbeat</text>
+<text x="340" y="316" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#0F6E56">Cron-scheduled shifts, never stops</text>
+<line x1="340" y1="332" x2="340" y2="390" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#ar2)"/>
+<rect x="170" y="392" width="340" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="340" y="414" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#633806">4. Morning plan, evening recap</text>
+<text x="340" y="432" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#854F0B">You review, approve or redirect</text>
+<path d="M510 420 L560 420 L560 304 L516 304" fill="none" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#ar2)"/>
+<text x="570" y="354" dominant-baseline="central" font-size="11" fill="#0F6E56">loop repeats</text>
+<text x="570" y="370" dominant-baseline="central" font-size="11" fill="#0F6E56">every cycle</text>
+<line x1="340" y1="448" x2="340" y2="506" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#ar2)"/>
+<rect x="170" y="508" width="340" height="56" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="340" y="530" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#2C2C2A">5. Polsia bills you three ways</text>
+<text x="340" y="548" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">Subscription + task credits + 20% of revenue</text>
+</svg>
+<figcaption>Figure 2 — The end-to-end loop. There is no demand-validation gate. No "have you talked to a customer yet?" step. The platform executes before it validates, which means credits get burned on ideas that never had a market.</figcaption>
+</figure>
+
+<div class="callout warn">
+  <p class="lbl">Documented in an independent hands-on test</p>
+  <p>Within ten minutes of signup — and <em>before any credit card was entered</em> — Polsia picked a business for the tester (an AI-SDR agency), invented a company name, wrote a mission statement, produced a competitor map of 15 companies, provisioned a live site and matching inbox, and <strong>publicly posted a positioning pitch on X from Polsia's own verified account</strong> for a company that had not existed ten minutes earlier and that no customer had ever been asked about.</p>
+  <p>It then emailed the tester a first-person market rationale: <em>"I picked this because every revenue leader I talk to is drowning in inbound they can't qualify."</em> There are no revenue leaders it talks to. That is fabricated customer discovery, delivered to the founder as the reason to commit money.</p>
+</div>
+
+<h2>3. Pricing and the 20% take rate</h2>
+
+<p>Polsia does not publish pricing publicly. The tiers below come from the in-product "Your AI Employee" modal. Note that the entry tier is the <strong>$20/month Standard</strong> plan — cheap, but capped at one company, twenty task credits, and <em>no ad capability at all</em>.</p>
+
+<table>
+<thead><tr><th>Plan</th><th class="num">Price / month</th><th class="num">Companies</th><th class="num">Task credits</th><th>Meta Ads</th></tr></thead>
+<tbody>
+<tr><td>Standard</td><td class="num">$20</td><td class="num">1</td><td class="num">20</td><td>Not included</td></tr>
+<tr><td>Pro</td><td class="num">$50</td><td class="num">3</td><td class="num">50</td><td>Included</td></tr>
+<tr><td>Max</td><td class="num">$200</td><td class="num">10</td><td class="num">200</td><td>Included</td></tr>
+<tr><td>Max 2</td><td class="num">$500</td><td class="num">25</td><td class="num">500</td><td>Included</td></tr>
+<tr><td>Max 3</td><td class="num">$1,000</td><td class="num">50</td><td class="num">1,000</td><td>Included</td></tr>
+</tbody>
+</table>
+
+<p>On top of the subscription there are three further charges that matter more than the headline price:</p>
+
+<ul>
+  <li><strong>Roughly $1 per task credit</strong>, metered, spent on a single click with no confirmation dialog. Failed tasks are not consistently refunded.</li>
+  <li><strong>A 20% fee on all customer payments received through the service.</strong> Polsia's Terms of Service, updated 19 June 2026, state a fee "currently 20%." Revenue lands in a Polsia-held balance first and is paid out after verification.</li>
+  <li><strong>A cut of managed ad spend</strong>, which Polsia also books into its own reported ARR.</li>
+</ul>
+
+<div class="callout warn">
+  <p class="lbl">Pricing hygiene is a red flag on its own</p>
+  <p>On a single day in 2026, three official Polsia surfaces quoted three different prices: the GitHub README advertised Free/$49, the in-product modal charged $20/$50, and the in-product FAQ quoted $25/month with task tiers from $19 to $999. Reviewers report being billed at $68 and $199 — amounts outside every published table. Confirm live pricing directly before committing.</p>
+</div>
+
+<h2>4. Where the money actually comes from</h2>
+
+<p>Polsia runs a public metrics API at <code>polsia.com/api/public/live</code>. Because it exposes each revenue stream separately, the reported ARR can be decomposed. This is the most useful thing in this entire briefing.</p>
+
+<div class="cards">
+  <div class="card"><p class="l">Reported ARR</p><p class="n">$16.0M</p><p class="f">+13.9% week over week</p></div>
+  <div class="card"><p class="l">Active companies</p><p class="n">24,843</p><p class="f">+23.8% week over week</p></div>
+  <div class="card"><p class="l">Still active, of all ever created</p><p class="n danger">6.2%</p><p class="f">24,843 of 399,586</p></div>
+  <div class="card"><p class="l">ARR from customers actually earning</p><p class="n danger">2.6%</p><p class="f">$418K of $16.0M</p></div>
+</div>
+
+<figure>
+<svg viewBox="0 0 680 250" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Polsia annualised revenue by stream</title>
+<desc>Subscriptions 9.64 million dollars, task credit packs 4.24 million, managed ad spend 1.49 million, domain sales 0.21 million, and the 20 percent share of customer company revenue only 0.42 million.</desc>
+<text x="190" y="36" text-anchor="end" dominant-baseline="central" font-size="12" fill="#2C2C2A">Subscriptions</text>
+<rect x="200" y="24" width="434" height="24" rx="3" fill="#185FA5"/>
+<text x="628" y="36" text-anchor="end" dominant-baseline="central" font-size="12" font-weight="600" fill="#FFFFFF">$9.64M</text>
+<text x="190" y="80" text-anchor="end" dominant-baseline="central" font-size="12" fill="#2C2C2A">Task credit packs</text>
+<rect x="200" y="68" width="191" height="24" rx="3" fill="#378ADD"/>
+<text x="399" y="80" dominant-baseline="central" font-size="12" fill="#5F5E5A">$4.24M</text>
+<text x="190" y="124" text-anchor="end" dominant-baseline="central" font-size="12" fill="#2C2C2A">Managed ad spend</text>
+<rect x="200" y="112" width="67" height="24" rx="3" fill="#85B7EB"/>
+<text x="275" y="124" dominant-baseline="central" font-size="12" fill="#5F5E5A">$1.49M</text>
+<text x="190" y="168" text-anchor="end" dominant-baseline="central" font-size="12" fill="#2C2C2A">Domain sales</text>
+<rect x="200" y="156" width="10" height="24" rx="3" fill="#B5D4F4"/>
+<text x="218" y="168" dominant-baseline="central" font-size="12" fill="#5F5E5A">$0.21M</text>
+<text x="190" y="212" text-anchor="end" dominant-baseline="central" font-size="12" font-weight="600" fill="#791F1F">20% of customer revenue</text>
+<rect x="200" y="200" width="19" height="24" rx="3" fill="#E24B4A"/>
+<text x="227" y="212" dominant-baseline="central" font-size="12" font-weight="600" fill="#A32D2D">$0.42M &mdash; only 2.6%</text>
+</svg>
+<figcaption>Figure 3 — Annualised from the live endpoint, retrieved 31 August 2026. The red bar is the only stream that requires a customer's business to actually make money. The five streams sum to $16.00M, matching the reported ARR figure exactly.</figcaption>
+</figure>
+
+<table>
+<thead><tr><th>Revenue stream</th><th class="num">Annualised</th><th class="num">Share</th><th>Requires customer success?</th></tr></thead>
+<tbody>
+<tr><td>Subscriptions</td><td class="num">$9,638,881</td><td class="num">60.2%</td><td>No</td></tr>
+<tr><td>Task credit packs</td><td class="num">$4,242,540</td><td class="num">26.5%</td><td>No</td></tr>
+<tr><td>Managed ad spend</td><td class="num">$1,490,926</td><td class="num">9.3%</td><td>No</td></tr>
+<tr><td>Domain sales</td><td class="num">$214,032</td><td class="num">1.3%</td><td>No</td></tr>
+<tr class="hl"><td><strong>20% of customer revenue</strong></td><td class="num"><strong>$418,401</strong></td><td class="num"><strong>2.6%</strong></td><td><strong>Yes</strong></td></tr>
+<tr><td><strong>Total</strong></td><td class="num"><strong>$16,004,780</strong></td><td class="num"><strong>100%</strong></td><td>&mdash;</td></tr>
+</tbody>
+</table>
+
+<div class="callout warn">
+  <p class="lbl">The number that reframes everything</p>
+  <p>The 20% take rate is pitched as perfect alignment: "if your company makes money, we make money; if it makes nothing, you pay nothing." Run the arithmetic backwards and the alignment collapses.</p>
+  <p>Polsia's 20% cut annualises to <strong>$418,401</strong>. That implies its customers' businesses collectively gross about <strong>$2.09M per year</strong>. Those same customers pay Polsia <strong>$16.0M per year</strong>.</p>
+  <p>Per active company, that is roughly <strong>$644 paid in</strong> against <strong>$84 earned out</strong> — customers are paying about <strong>7.7&times; more than their AI-run businesses generate.</strong> Polsia is not in the business of sharing its customers' upside. It is a picks-and-shovels business wearing an alignment story.</p>
+</div>
+
+<h3>Two further accounting notes worth flagging to any investor</h3>
+
+<ul>
+  <li><strong>Pass-through ad spend is booked as ARR.</strong> $1.49M of the headline figure is customer money on its way to Meta and Google. Counting that as your own recurring revenue is aggressive.</li>
+  <li><strong>The public numbers mix three incompatible metrics.</strong> Reporting across 2026 variously used ARR, "annual run rate," and projected calendar-year revenue. In June 2026 the dashboard showed ARR <em>falling</em> 3% in a single week while active companies grew 15% — per-company ARR dropped 15.7%, from $1,453 to $1,225. The most likely explanation is post-fundraise tightening of revenue recognition once investors audited the books. It is normal hygiene, but it punctures the headline.</li>
+</ul>
+
+<h2>5. The funding: $30M of venture capital, not crowdfunding</h2>
+
+<p>This is worth stating plainly because the raise <em>felt</em> like crowdfunding and was deliberately staged to feel that way. It was not. There was no Wefunder or Republic campaign, and no retail investors. It was a single institutional round.</p>
+
+<table>
+<thead><tr><th>Item</th><th>Detail</th></tr></thead>
+<tbody>
+<tr><td>Amount</td><td>$30,000,000 &mdash; total raised to date, across one round</td></tr>
+<tr><td>Valuation</td><td>$250,000,000</td></tr>
+<tr><td>Announced</td><td>Late May 2026 (variously reported as seed or Series A)</td></tr>
+<tr><td>Lead investor</td><td>Sound Ventures &mdash; Ashton Kutcher and Guy Oseary's firm</td></tr>
+<tr><td>Participating</td><td>True Ventures, Offline Ventures, Adjacent, Tekton Ventures, Drysdale, Vaynerfund (Gary Vaynerchuk), Rebel Fund, Roosh Ventures, Inovexus, TS Ventures, Alumni Ventures, Y Combinator Continuity Fund</td></tr>
+<tr><td>Original ask</td><td>$10M &mdash; 70% infrastructure and AI compute, 30% growth and distribution. Closed at 3&times; the ask.</td></tr>
+<tr><td>Headcount</td><td>1 &mdash; the founder. Zero employees.</td></tr>
+<tr><td>Crowdfunding?</td><td><strong>No.</strong> The public live dashboard made it look participatory; the cap table was institutional throughout.</td></tr>
+</tbody>
+</table>
+
+<p>The detail that made the round go viral: the founder claims <strong>Polsia's own agents ran the fundraise</strong> — managing the data room, briefing investors, and handling due-diligence correspondence — while he showed up only for final calls and signatures. The raise was staged as a live product demo. He also concedes one agent invented calendar availability while talking to prospective investors.</p>
+
+<h2>6. Timeline: from launch to $16M in nine months</h2>
+
+<p>The founder is not a first-timer, and that matters for the next section.</p>
+
+<ul class="tl">
+<li><span class="d">Pre-2020</span><span class="e">Ben Broca (publishes as Ben Cera; full name Victor-Benjamin Broca) &mdash; engineering at &Eacute;cole Centrale Paris, MS financial engineering at Columbia, quantitative trading and interest-rate structuring at Barclays.</span></li>
+<li><span class="d">2017</span><span class="e">Co-founds Hutch, a virtual interior-design service, as CTO. Raises ~$17M total including $10M from Zillow, with earlier backing from Founders Fund, Scooter Braun and Sean Rad.</span></li>
+<li><span class="d">2020&ndash;2024</span><span class="e">Joins Travis Kalanick's CloudKitchens as an early operator, becomes Global GM and co-founder / global head of Future Foods. Helps scale to $100M+ revenue running distributed ops on thin headcount.</span></li>
+<li><span class="d">2024</span><span class="e">Returns to writing code personally after years in management. Builds several AI products that fail to gain traction.</span></li>
+<li><span class="d">Dec 2025</span><span class="e">Polsia launches publicly. He credits Anthropic's Opus 4.5 release plus improved browser integration as the tipping point: "That was game over."</span></li>
+<li><span class="d">25 Feb 2026</span><span class="e">Crosses $100K ARR. Three days later crosses $1M. Hits $1.25M after a single $250K day.</span></li>
+<li><span class="d">Mar 2026</span><span class="e">$3.5M ARR, ~4,000 companies. Fortune reports a claimed $4.5M run rate.</span></li>
+<li><span class="d">Apr 2026</span><span class="e">$6.2M ARR.</span></li>
+<li><span class="d">Late May 2026</span><span class="e">$30M at $250M valuation. ~7,600 businesses on platform. The "one-person unicorn" narrative peaks.</span></li>
+<li><span class="d">12 Jun 2026</span><span class="e">8,509 active companies, but ARR falls 3% in one week to $10.42M. Founder personally answering bug reports on X. Fortune asks: "myth, miracle, or the future of startups?"</span></li>
+<li><span class="d">29 Jul 2026</span><span class="e">Wall Street Journal reports 10,000 paying customers and $10M projected 2026 revenue &mdash; company-reported, not audited.</span></li>
+<li><span class="d">31 Aug 2026</span><span class="e">$16.0M ARR, 24,843 active companies, 399,586 companies created cumulatively, ~1.5M monthly site visits.</span></li>
+</ul>
+
+<h2>7. Product, press, or network? An honest attribution</h2>
+
+<p>The question of whether this was won on product merit or on narrative is the right question to ask, and the answer is uncomfortable: <strong>the product was necessary but nowhere near sufficient.</strong> Roughly 85% of the outcome came from things that are not the software.</p>
+
+<figure>
+<svg viewBox="0 0 680 356" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Attribution of Polsia's raise across four drivers</title>
+<desc>Founder pedigree 30 percent, narrative timing 30 percent, build-in-public distribution 25 percent, product substance 15 percent.</desc>
+<defs><marker id="ar3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="40" y="44" width="300" height="64" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="56" y="70" dominant-baseline="central" font-size="14" font-weight="600" fill="#633806">Founder pedigree and network</text>
+<text x="56" y="90" dominant-baseline="central" font-size="12" fill="#854F0B">CloudKitchens GM, Hutch's $17M</text>
+<text x="324" y="76" text-anchor="end" dominant-baseline="central" font-size="18" font-weight="600" fill="#633806">30%</text>
+<rect x="40" y="120" width="300" height="64" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="56" y="146" dominant-baseline="central" font-size="14" font-weight="600" fill="#633806">Narrative timing</text>
+<text x="56" y="166" dominant-baseline="central" font-size="12" fill="#854F0B">The 2026 solo-founder thesis</text>
+<text x="324" y="152" text-anchor="end" dominant-baseline="central" font-size="18" font-weight="600" fill="#633806">30%</text>
+<rect x="40" y="196" width="300" height="64" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="56" y="222" dominant-baseline="central" font-size="14" font-weight="600" fill="#633806">Build-in-public distribution</text>
+<text x="56" y="242" dominant-baseline="central" font-size="12" fill="#854F0B">Live dashboard, LinkedIn, WSJ</text>
+<text x="324" y="228" text-anchor="end" dominant-baseline="central" font-size="18" font-weight="600" fill="#633806">25%</text>
+<rect x="40" y="272" width="300" height="64" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="56" y="298" dominant-baseline="central" font-size="14" font-weight="600" fill="#085041">Product substance</text>
+<text x="56" y="318" dominant-baseline="central" font-size="12" fill="#0F6E56">Real provisioning, fast demos</text>
+<text x="324" y="304" text-anchor="end" dominant-baseline="central" font-size="18" font-weight="600" fill="#085041">15%</text>
+<line x1="370" y1="76" x2="370" y2="304" stroke="#888780" stroke-width="1.5"/>
+<line x1="340" y1="76" x2="370" y2="76" stroke="#888780" stroke-width="1.5"/>
+<line x1="340" y1="152" x2="370" y2="152" stroke="#888780" stroke-width="1.5"/>
+<line x1="340" y1="228" x2="370" y2="228" stroke="#888780" stroke-width="1.5"/>
+<line x1="340" y1="304" x2="370" y2="304" stroke="#888780" stroke-width="1.5"/>
+<line x1="370" y1="190" x2="396" y2="190" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#ar3)"/>
+<rect x="400" y="146" width="240" height="88" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="520" y="172" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#2C2C2A">$30M at $250M valuation</text>
+<text x="520" y="192" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">Led by Sound Ventures, May 2026</text>
+<text x="520" y="212" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">Venture capital, not crowdfunding</text>
+</svg>
+<figcaption>Figure 4 — Attribution estimate. Weights are our judgement, not Polsia's, based on the evidence in this briefing.</figcaption>
+</figure>
+
+<div class="two">
+<div>
+<h3>Why the network mattered so much</h3>
+<p>He was not a stranger knocking on doors. He had already raised $17M for Hutch from Founders Fund and Zillow, and he spent four years inside Travis Kalanick's orbit. That is a warm, pre-qualified Silicon Valley network before the first email is sent.</p>
+<p>Look at <em>which</em> funds led: Sound Ventures (Ashton Kutcher) and Vaynerfund (Gary Vaynerchuk). These are attention-native firms. Their comparative advantage is amplification. Their participation is itself a distribution channel.</p>
+</div>
+<div>
+<h3>Why the timing mattered so much</h3>
+<p>"AI collapses headcount" was the single hottest thesis of 2026, and the venture market badly needed a legible proof point for it. Polsia volunteered to <em>be</em> that proof point, and made itself trivially quotable: one person, zero employees, $250M.</p>
+<p>Harvard Business School and INSEAD research published the same year found that even the most AI-native startups had headcount only 12&ndash;25% below peers. The thesis needed a poster child precisely because the broad data did not support it yet.</p>
+</div>
+</div>
+
+<h3>Why the build-in-public machine mattered</h3>
+<p>The public live dashboard and open metrics API were not transparency for its own sake — they were the marketing engine. Every milestone became a shareable artifact. The founder posted revenue numbers and agent metrics continuously across X, LinkedIn, Indie Hackers and Product Hunt, then ran the podcast circuit. Even the critics fed the machine: multiple viral posts pointed out that "Polsia" reversed spells "aislop." Controversy travels as fast as praise, and both drove signups.</p>
+
+<h2>8. What Polsia genuinely does well</h2>
+
+<div class="callout good">
+  <p class="lbl">Worth respecting and worth borrowing</p>
+  <p><strong>1. It ships the plumbing, including the money rails.</strong> Provisioning a server, database, repo, inbox, domain, Stripe account and Meta Ads account in one action removes hours of genuinely tedious setup. Most agent products stop at code generation and leave you to wire up payments and ads yourself. This is the single most defensible piece of the product.</p>
+  <p><strong>2. The heartbeat solves a real human failure mode.</strong> Small businesses rarely fail at marketing for lack of talent — they fail because the founder gets busy and the marketing stops. A cron schedule never gets busy. Framing agents as scheduled shifts rather than on-demand prompts is a genuinely good design choice.</p>
+  <p><strong>3. Skills accumulate.</strong> When an agent finds a method that works, it saves it as a reusable skill, so the next run does not start from zero. Combined with cross-company memory across 24,843 businesses, this is the only mechanism in the product that actually compounds — and therefore the only real long-term moat.</p>
+  <p><strong>4. It is opinionated.</strong> The founder names this as his edge, and he is right. Polsia decides for you instead of offering endless configuration. Config paralysis kills adoption; defaults beat flexibility for this audience.</p>
+  <p><strong>5. The monetisation design is genuinely clever.</strong> Four independent shots at the same user — subscription, metered credits, ad-spend margin, and revenue share — with a stated roadmap into a marketplace and investment funds ("Not a tool. An economy."). Whatever you think of the execution, the business model is more sophisticated than the product.</p>
+  <p><strong>6. It solved its own unit economics.</strong> One early month burned ~$1.5M running every task on the most expensive available model while charging $1 for tasks that cost $30&ndash;50. The fix was unglamorous and correct: route each task to the cheapest model capable of doing it well, and lean on open-source models. That is real operating discipline.</p>
+</div>
+
+<h2>9. Where it breaks</h2>
+
+<table>
+<thead><tr><th>Risk</th><th>Evidence</th></tr></thead>
+<tbody>
+<tr><td><strong>No validation gate</strong></td><td>Builds and publicly markets before asking whether demand exists. Independent reviewers flag this as structural, not a bug.</td></tr>
+<tr><td><strong>Activity, not outcomes</strong></td><td>Trustpilot fell from 2.1/5 to <strong>1.8/5</strong> (~80% one-star). One documented log: 47 tasks, 21.3% success rate, <strong>$0 revenue generated</strong>. An independent test found ~93% of user projects stalled; the live API's own 6.2% active rate corroborates it.</td></tr>
+<tr><td><strong>You do not own the asset</strong></td><td>Code and infrastructure sit on Polsia's accounts. Users report websites deployed on Polsia's Render and difficulty recovering code and domains. The 20% cut continues indefinitely.</td></tr>
+<tr><td><strong>Reputational blast radius</strong></td><td>Agents send cold email and post publicly <em>in your name</em>, with documented cases of wrong names, wrong prices, and fabricated claims. An agent invented calendar availability to investors.</td></tr>
+<tr><td><strong>Binary autonomy</strong></td><td>No slider. You cannot say "auto-publish drafts but ask me before changing pricing." It is all-in or nothing, which is wrong for most real businesses.</td></tr>
+<tr><td><strong>Bus factor of one</strong></td><td>In June 2026 the founder was personally replying to bug reports on X while 8,500+ companies ran on the platform. Support delays of weeks are widely reported.</td></tr>
+<tr><td><strong>Vendor dependency</strong></td><td>"Zero employees" shifts cost from payroll to Anthropic, OpenAI, Meta, Stripe, Render, GitHub and AWS bills. Compute is the COGS, and the pricing decisions belong to someone else.</td></tr>
+<tr><td><strong>Thin technical moat</strong></td><td>The agent-orchestration layer is increasingly commodity. Open-source alternatives such as OpenClaw already exist, and any frontier lab could absorb this category.</td></tr>
+</tbody>
+</table>
+
+<h2>10. What we should take from this</h2>
+
+<ol>
+  <li><strong>The agent layer is not the differentiator, and we should stop evaluating tools as if it were.</strong> If Polsia feels similar to other agent platforms in daily use, that is because it <em>is</em> similar. Its advantage is packaging: pre-wired money rails, opinionated defaults, and a monetisation design with four revenue lines. Those are business-design choices, not model choices.</li>
+  <li><strong>Sell an outcome, not a tool.</strong> "We run your company" priced at $20 outsold every "AI assistant" positioning in the market. The ideal customer here wants operational output, not another dashboard to configure.</li>
+  <li><strong>Instrument yourself in public.</strong> A live metrics endpoint doubled as marketing, as proof, and as the fundraise itself. It is cheap to build and it compounds. It is also a double-edged sword — that same endpoint is exactly what let us dismantle the alignment story in section 4.</li>
+  <li><strong>A take rate only aligns incentives if customers actually earn.</strong> At a 7.7:1 pay-to-earn ratio it is not alignment, it is a tax — and it shows up as a 1.8-star rating and ~94% abandonment. If we ever build revenue-share pricing, it has to sit behind a validation gate.</li>
+  <li><strong>Put the validation step back in.</strong> The single highest-leverage improvement to this entire category is one question asked before the build begins: "who has already said they would pay for this?" Polsia's whole complaint pattern traces back to skipping it.</li>
+  <li><strong>If we test it: budget $20/month as research, not as a business plan.</strong> Expect one company, twenty credits, no ads, no code ownership, and a 20% claim on anything it collects. Do not point it at anything with our name or our customers attached.</li>
+</ol>
+
+<footer>
+<p><strong>Sources</strong></p>
+<ol>
+<li>polsia.com &mdash; homepage and /deck pitch deck (retrieved 31 Aug 2026)</li>
+<li>polsia.com/api/public/live &mdash; public metrics endpoint (retrieved 31 Aug 2026); all revenue-mix arithmetic derived from this response</li>
+<li>Polsia Terms of Service, updated 19 Jun 2026 &mdash; 20% fee clause</li>
+<li>Dealroom &mdash; "Polsia explodes from $200K to $2M run rate in two weeks"</li>
+<li>indexed.vc/companies/polsia &mdash; funding history and investor list</li>
+<li>The Developer Story &mdash; "Solo Founder Ben Cera Raises $30M for Polsia" (21 May 2026)</li>
+<li>Wall Street Journal &mdash; 10,000-customer report (29 Jul 2026), via secondary coverage</li>
+<li>Fortune &mdash; "The one-person unicorn: myth, miracle, or the future of startups?"</li>
+<li>Mixergy &mdash; founder interview transcript, architecture and cost detail</li>
+<li>Preuve AI, Superapp, Licheo, Tycoon &mdash; independent hands-on reviews and Trustpilot aggregation</li>
+<li>Trustpilot &mdash; Polsia reviews, 2.1/5 (May 2026) declining to 1.8/5 (Jun 2026)</li>
+</ol>
+<p style="margin-top:14px">Metrics marked as reported are company-stated and unaudited. ARR, "annual run rate" and projected calendar-year revenue are used inconsistently across Polsia's own public communications and do not form a comparable series.</p>
+</footer>
+
+</div>
+</body>
+</html>

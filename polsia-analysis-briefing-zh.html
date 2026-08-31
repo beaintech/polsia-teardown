@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polsia 分析简报——它卖什么、怎么赚钱、为什么融了 3000 万美元</title>
+<style>
+:root{
+  --ink:#1c1c1a; --ink2:#5f5e5a; --ink3:#888780;
+  --line:#e3e1d9; --bg:#ffffff; --surface:#f7f6f1;
+  --blue:#185fa5; --blue-bg:#e6f1fb;
+  --teal:#0f6e56; --teal-bg:#e1f5ee;
+  --amber:#854f0b; --amber-bg:#faeeda;
+  --red:#a32d2d; --red-bg:#fcebeb;
+  --purple:#534ab7; --purple-bg:#eeedfe;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:880px; margin:0 auto; padding:56px 32px 80px}
+header{border-bottom:1px solid var(--line); padding-bottom:28px; margin-bottom:40px}
+.kicker{font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink3); margin:0 0 12px}
+h1{font-size:30px; line-height:1.3; font-weight:600; margin:0 0 12px; letter-spacing:-.015em}
+.sub{font-size:16px; color:var(--ink2); margin:0}
+.meta{font-size:13px; color:var(--ink3); margin:18px 0 0}
+h2{font-size:20px; font-weight:600; margin:52px 0 14px; letter-spacing:-.01em; padding-top:8px}
+h3{font-size:15px; font-weight:600; margin:28px 0 8px}
+p{margin:0 0 14px}
+ul,ol{margin:0 0 16px; padding-left:22px}
+li{margin-bottom:7px}
+strong{font-weight:600}
+a{color:var(--blue)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px; background:var(--surface); padding:2px 5px; border-radius:4px}
+
+.callout{border-left:3px solid var(--blue); background:var(--blue-bg); padding:16px 20px; border-radius:0 8px 8px 0; margin:0 0 22px}
+.callout.warn{border-color:var(--red); background:var(--red-bg)}
+.callout.good{border-color:var(--teal); background:var(--teal-bg)}
+.callout p:last-child{margin-bottom:0}
+.callout .lbl{font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:600; color:var(--blue); margin:0 0 6px}
+.callout.warn .lbl{color:var(--red)}
+.callout.good .lbl{color:var(--teal)}
+
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:0 0 26px}
+.card{background:var(--surface); border-radius:10px; padding:16px 18px}
+.card .l{font-size:12px; color:var(--ink2); margin:0 0 6px; line-height:1.4}
+.card .n{font-size:25px; font-weight:600; margin:0; line-height:1.1; letter-spacing:-.02em}
+.card .n.danger{color:var(--red)}
+.card .n.pos{color:var(--teal)}
+.card .f{font-size:11px; color:var(--ink3); margin:6px 0 0}
+
+table{width:100%; border-collapse:collapse; margin:0 0 22px; font-size:14px}
+th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-size:12px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink2); font-weight:600; background:var(--surface)}
+td.num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+tr.hl td{background:var(--red-bg)}
+
+figure{margin:0 0 28px}
+figure svg{display:block; width:100%; height:auto}
+figcaption{font-size:12px; color:var(--ink3); margin-top:10px; line-height:1.6}
+
+.tl{list-style:none; padding:0; margin:0 0 24px}
+.tl li{display:grid; grid-template-columns:130px 1fr; gap:16px; padding:11px 0; border-bottom:1px solid var(--line); margin:0}
+.tl .d{font-size:13px; font-weight:600; color:var(--ink2); font-variant-numeric:tabular-nums}
+.tl .e{font-size:14px}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-bottom:8px}
+@media (max-width:720px){ .two{grid-template-columns:1fr; gap:8px} .tl li{grid-template-columns:100px 1fr} .wrap{padding:36px 20px 60px} h1{font-size:25px} }
+
+footer{margin-top:56px; padding-top:24px; border-top:1px solid var(--line); font-size:12px; color:var(--ink3)}
+footer ol{padding-left:20px} footer li{margin-bottom:4px}
+@media print{
+  body{font-size:10.5pt; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+  h2,h3{page-break-after:avoid; break-after:avoid}
+  figure,table,.callout,.cards,.card{page-break-inside:avoid; break-inside:avoid}
+  tr{page-break-inside:avoid; break-inside:avoid}
+  .wrap{padding:0; max-width:none}
+  header{border-bottom:1px solid #ccc}
+  footer{page-break-before:always}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">竞品拆解 · 内部简报</p>
+  <h1>Polsia：它到底卖什么、怎么赚钱、为什么融了 3000 万美元</h1>
+  <p class="sub">一个承诺「用 AI 帮你把整家公司跑起来」的自主 agent 平台。需求是真的，但客户拿到手的结果不是——这两者之间的落差，就是全部故事。</p>
+  <p class="meta">整理于 2026 年 8 月 31 日 · 以下财务数字来自 Polsia 自己的公开实时接口，并与媒体报道交叉核对。来源见文末。</p>
+</header>
+
+<div class="callout">
+  <p class="lbl">五句话结论</p>
+  <p><strong>1.</strong> Polsia 卖的是「AI 员工」——一支由九个定时排班的 agent 组成的队伍，端到端地帮你规划、写码、营销、销售和客服，跑在它替你搭好的基础设施上。</p>
+  <p><strong>2.</strong> 它有四种赚钱方式：每月 20–1000 美元的订阅、约 1 美元一次的任务点数、广告代投的差价，以及客户生意全部收入的 <strong>20% 抽成</strong>。</p>
+  <p><strong>3.</strong> 它在 2026 年 5 月以 2.5 亿美元估值融了 <strong>3000 万美元</strong>——这是风投（Sound Ventures 领投），<strong>不是众筹</strong>。整个公司只有创始人一个员工。</p>
+  <p><strong>4.</strong> 按它自己的实时数据算，<strong>其 1600 万美元 ARR 里只有 2.6% 来自客户生意真正赚到的钱</strong>。客户付给 Polsia 的钱，大约是他们的 AI 公司赚到的钱的 7.7 倍。</p>
+  <p><strong>5.</strong> 护城河不在 AI，而在于预先接好的收款通道、强决策的默认设置，以及「一个用户身上收四次钱」的变现设计。这部分值得研究。至于结果那层，不行。</p>
+</div>
+
+<h2>0. 为什么别人说它好，你用起来却觉得没意思</h2>
+
+<p>这个问题值得最先回答，因为矛盾是真的，不是你多心。网上人人说 Polsia 了不起，你注册用了却没什么感觉。两者都对，而落差不是偶然——它是六个与代码好坏无关的力量叠加的必然结果。</p>
+
+<figure>
+<svg viewBox="0 0 680 290" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>别人口中的 Polsia 与订阅用户实际得到的落差</title>
+<desc>四个时间点的折线图。代表媒体吹捧的蓝线从第 1 天的 90 缓慢降到第 3 个月的 50。代表订阅用户实际得到的红线从第 1 天的 10 缓慢升到 25。中间灰色区域是落差。</desc>
+<path d="M100,76 L260,92 L420,124 L580,140 L580,180 L420,188 L260,196 L100,204 Z" fill="#F1EFE8"/>
+<line x1="100" y1="60" x2="100" y2="212" stroke="#A32D2D" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="110" y="52" dominant-baseline="central" font-size="11" font-weight="600" fill="#791F1F">所有好评都写在第一小时</text>
+<path d="M100,76 L260,92 L420,124 L580,140" fill="none" stroke="#185FA5" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M100,204 L260,196 L420,188 L580,180" fill="none" stroke="#E24B4A" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="100" cy="76" r="4.5" fill="#185FA5"/><circle cx="260" cy="92" r="4.5" fill="#185FA5"/>
+<circle cx="420" cy="124" r="4.5" fill="#185FA5"/><circle cx="580" cy="140" r="4.5" fill="#185FA5"/>
+<circle cx="100" cy="204" r="4.5" fill="#E24B4A"/><circle cx="260" cy="196" r="4.5" fill="#E24B4A"/>
+<circle cx="420" cy="188" r="4.5" fill="#E24B4A"/><circle cx="580" cy="180" r="4.5" fill="#E24B4A"/>
+<text x="300" y="150" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#5F5E5A">落差</text>
+<line x1="90" y1="224" x2="600" y2="224" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="100" y="238" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">第1天</text>
+<text x="260" y="238" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">第1周</text>
+<text x="420" y="238" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">第1个月</text>
+<text x="580" y="238" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">第3个月</text>
+<rect x="100" y="260" width="12" height="12" rx="2" fill="#185FA5"/>
+<text x="120" y="266" dominant-baseline="central" font-size="12" fill="#2C2C2A">别人嘴上说的</text>
+<rect x="285" y="260" width="12" height="12" rx="2" fill="#E24B4A"/>
+<text x="305" y="266" dominant-baseline="central" font-size="12" fill="#2C2C2A">用户实际得到的</text>
+</svg>
+<figcaption>图 0.1 —— 感知价值第一天见顶后一路下滑；用户真正得到的缓慢爬升、永远追不上。你读到的每一篇热情洋溢的评测，都写在这张图的左端。</figcaption>
+</figure>
+
+<figure>
+<svg viewBox="0 0 680 316" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>同一个产品，两拨人给出两个相反的结论</title>
+<desc>谈论 Polsia 的人看过演示，称之为神奇。付费使用它的人活到了第二个月及以后，给了 1.8 分（满分 5），其中 94% 已经离开。</desc>
+<text x="40" y="46" dominant-baseline="central" font-size="14" font-weight="600" fill="#0C447C">谁在说它好</text>
+<text x="360" y="46" dominant-baseline="central" font-size="14" font-weight="600" fill="#791F1F">谁在付钱</text>
+<line x1="340" y1="36" x2="340" y2="272" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text x="52" y="78" dominant-baseline="central" font-size="13" fill="#2C2C2A">记者与媒体</text>
+<text x="52" y="100" dominant-baseline="central" font-size="13" fill="#2C2C2A">播客主</text>
+<text x="52" y="122" dominant-baseline="central" font-size="13" fill="#2C2C2A">写叙事的 VC</text>
+<text x="52" y="144" dominant-baseline="central" font-size="13" fill="#2C2C2A">X / LinkedIn 围观者</text>
+<circle cx="44" cy="78" r="2.5" fill="#185FA5"/><circle cx="44" cy="100" r="2.5" fill="#185FA5"/>
+<circle cx="44" cy="122" r="2.5" fill="#185FA5"/><circle cx="44" cy="144" r="2.5" fill="#185FA5"/>
+<text x="372" y="78" dominant-baseline="central" font-size="13" fill="#2C2C2A">真在运营生意的订阅用户</text>
+<circle cx="364" cy="78" r="2.5" fill="#E24B4A"/>
+<text x="40" y="178" dominant-baseline="central" font-size="11" font-weight="600" fill="#5F5E5A">他们经历的是</text>
+<text x="360" y="178" dominant-baseline="central" font-size="11" font-weight="600" fill="#5F5E5A">他们经历的是</text>
+<rect x="40" y="192" width="266" height="40" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="173" y="212" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#0C447C">10 分钟演示</text>
+<rect x="360" y="192" width="280" height="40" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+<text x="500" y="212" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#791F1F">第二个月及以后</text>
+<rect x="40" y="244" width="266" height="52" rx="8" fill="#185FA5"/>
+<text x="173" y="263" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="600" fill="#FFFFFF">「太神奇了」</text>
+<text x="173" y="281" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#B5D4F4">2.5 亿估值 · 华尔街日报</text>
+<rect x="360" y="244" width="280" height="52" rx="8" fill="#A32D2D"/>
+<text x="500" y="263" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="600" fill="#FFFFFF">1.8 / 5 分 · 74% 一星</text>
+<text x="500" y="281" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#F7C1C1">94% 的公司被弃用</text>
+<text x="340" y="306" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#5F5E5A">同一个产品，两拨人。只有一拨还在说话。</text>
+</svg>
+<figcaption>图 0.2 —— 两个结论并不矛盾，因为它们来自两拨不同的人。吹捧的人从没在上面运营过公司；付费的人运营了，然后大多走了。</figcaption>
+</figure>
+
+<h3>六个原因，每个配一个数字</h3>
+
+<figure>
+<svg viewBox="0 0 680 332" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>落差背后的六个原因，各配一个数字</title>
+<desc>六个框总结为什么 Polsia 对别人看起来很棒、对用户却很空：吹捧者从没付过钱、价值第一天见顶、治的是不开始、最好的能力看不见、为一无所有者而建、社交网络奖励惊人。</desc>
+<rect x="40" y="84" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="130" y="112" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">吹捧者从没付过钱</text>
+<text x="130" y="136" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">记者、VC、围观者</text>
+<text x="130" y="166" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">94% 已弃用</text>
+<rect x="240" y="84" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="330" y="112" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">价值第一天见顶</text>
+<text x="330" y="136" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">10 分钟演示</text>
+<text x="330" y="166" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">47 任务 · 21.3% · $0</text>
+<rect x="440" y="84" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="530" y="112" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">治的是「不开始」</text>
+<text x="530" y="136" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">卖的是启动动能</text>
+<text x="530" y="166" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">$20 买来行动力</text>
+<rect x="40" y="204" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="130" y="232" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">最好的能力看不见</text>
+<text x="130" y="256" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">心跳排班永不停机</text>
+<text x="130" y="286" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">只看得见失误</text>
+<rect x="240" y="204" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="330" y="232" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">对一无所有者最值</text>
+<text x="330" y="256" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">公司形状的玩具</text>
+<text x="330" y="286" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">为那个人而生</text>
+<rect x="440" y="204" width="180" height="108" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="530" y="232" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">社交网络奖励惊人</text>
+<text x="530" y="256" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#185FA5">连「aislop」都在传播</text>
+<text x="530" y="286" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#A32D2D">$2.5亿 胜过 +15%</text>
+</svg>
+<figcaption>图 0.3 —— 同一个论证，每格只留一个关键数字。</figcaption>
+</figure>
+
+<ul>
+<li><strong>吹捧它的人从没付过钱。</strong> 你读到的每一句夸奖都来自看过演示的人，而不是运营过公司的人。付费的人大多已经走了——按 Polsia 自己的数据，<strong>所有创建过的公司里只剩 6.2% 还活跃</strong>。吹捧者买的是故事，订阅者买的是结果。只有一拨人还在说话。</li>
+<li><strong>它的价值第一天见顶。</strong> 「10 分钟从零到活」是它最好的时刻，也是每篇评测写的东西。之后是一长串看起来忙忙碌碌却很少转化产出：有记录显示 <strong>47 个任务、21.3% 成功率、$0 收入</strong>。</li>
+<li><strong>它治的是「不开始」，不是「做不好」。</strong> 它的真正产品是消除启动阻力——把「想到一个主意」和「拥有一个带收款功能的活网站」之间的距离压缩到 10 分钟和 20 美元。如果你的瓶颈是质量或判断力，它帮不上忙，还倒贴你的审阅时间。</li>
+<li><strong>它最好的能力是看不见的。</strong> 心跳排班在你睡觉时也在工作，但坚持是感知不到的——能感知到的只有失误。你注意到的是那封标错价格的冷邮件，而不是昨晚正常跑完的四百件事。</li>
+<li><strong>它是为一无所有者做的。</strong> 如果你已经有客户和流程，它就是一个更慢、更不听话、还要抽走 20% 收入并攥着你代码的实习生。</li>
+<li><strong>社交网络奖励「惊人」，不奖励「有用」。</strong> 「一人、零员工、2.5 亿估值」传得动，「营收 +15%」传不动。连「aislop」这个嘲讽梗都在帮它带来注册。</li>
+</ul>
+
+<div class="callout">
+  <p class="lbl">那么它到底在哪些地方真有用？三个诚实的场景</p>
+  <p><strong>低价并行试错。</strong> 一家 20 美元，用「二十个想法一起测」代替「一个想法反复打磨」，这个成本结构是真正新的。把它当想法验证的霰弹枪，而不是一门生意。</p>
+  <p><strong>已经跑通但营销会断的生意。</strong> 如果你已经有产品市场契合，唯一的问题是「人一忙营销就停」，那心跳排班是真实价值——前提是你能管住它对外发什么。</p>
+  <p><strong>当作研究样本。</strong> 它是 agent 编排、跨公司记忆、多线变现设计的范例。就算从不在上面开公司，花 20 美元当研究也值。</p>
+</div>
+
+<div class="callout warn">
+  <p class="lbl">一句话测试</p>
+  <p>订阅之前问自己：<strong>我有没有一个想了三个月、却一直没动手的项目？</strong></p>
+  <p>有，那 20 美元是「终于开始」的合理价格。没有，它卖给你的只会是忙碌，而不是结果——然后你会加入那 94%。</p>
+</div>
+
+<h2>1. 业务到底是什么</h2>
+
+<p>Polsia 自己的口号是「AI 在你睡觉时替你运营公司」。它的融资 PPT 更直白：<em>「2026 年还没做到 80% 自主的公司都会死。」</em></p>
+
+<p>功能上它是三层产品叠在一起，而大多数评论只看到了第一层：</p>
+
+<ul>
+  <li><strong>一句话开公司。</strong> 你输入一个想法——或者点「给我惊喜」让它自己挑一个——它写代码并把活网站发上线。</li>
+  <li><strong>一套配好的商业基础设施。</strong> 这是最被低估的部分。它一次性开好服务器、数据库、GitHub 仓库、邮箱、Stripe 账户、域名和 Meta 广告账户。收款通道和广告通道都接好了，这是几乎其他所有 agent 工具都不做的事。</li>
+  <li><strong>一层永远在线的运营。</strong> 九个 agent 跑在类似定时任务的「心跳」上——在你两次指令之间继续工作。这正是创始人宣称与「一句话生成 app」类工具的区别：那些只生成一次产物，Polsia 持续运营。</li>
+</ul>
+
+<p>最好的类比：<strong>Shopify 让你当店长，Polsia 想让你当董事长</strong>——你出主意和品味，agent 出劳动力。</p>
+
+<h3>是的，「雇一个 AI 员工」指的是完整的商业职能，不只是写代码</h3>
+
+<p>这直接回答「是不是综合型」的问题：是。产品内的付费弹窗标题就叫「你的 AI 员工」，职责覆盖整条增长链路——工程、查 bug、市场和竞品调研、发社媒、发冷邮件、Meta 和 Google 广告（含 AI 生成的 UGC 素材）、客服收件箱、Stripe 收款、基础设施自愈——全部由一个创始人称之为「CEO agent」的编排者协调，它每天夜里醒来复盘业务、定下明天的优先级。</p>
+
+<figure>
+<svg viewBox="0 0 680 346" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Polsia 九个 agent 的职能分工</title>
+<desc>一个 CEO agent 编排者向三组 agent 派活：建设组覆盖工程、查 bug、调研；增长组覆盖社媒、冷邮件、投广告；运营组覆盖客服收件箱、收款、基建自愈。</desc>
+<defs><marker id="z1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="210" y="44" width="260" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="340" y="66" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#3C3489">编排者：「CEO agent」</text>
+<text x="340" y="84" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#534AB7">每晚醒来，定明天的优先级</text>
+<path d="M340 100 L340 120 L135 120 L135 132" fill="none" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#z1)"/>
+<path d="M340 100 L340 132" fill="none" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#z1)"/>
+<path d="M340 100 L340 120 L545 120 L545 132" fill="none" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#z1)"/>
+<rect x="40" y="136" width="190" height="190" rx="12" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="135" y="158" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#0C447C">建设</text>
+<rect x="54" y="176" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#B5D4F4" stroke-width="0.5"/>
+<text x="135" y="194" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#0C447C">工程</text>
+<rect x="54" y="220" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#B5D4F4" stroke-width="0.5"/>
+<text x="135" y="238" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#0C447C">查 bug</text>
+<rect x="54" y="264" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#B5D4F4" stroke-width="0.5"/>
+<text x="135" y="282" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#0C447C">市场调研</text>
+<rect x="245" y="136" width="190" height="190" rx="12" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="158" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#085041">增长</text>
+<rect x="259" y="176" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#9FE1CB" stroke-width="0.5"/>
+<text x="340" y="194" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#085041">社媒</text>
+<rect x="259" y="220" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#9FE1CB" stroke-width="0.5"/>
+<text x="340" y="238" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#085041">冷邮件</text>
+<rect x="259" y="264" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#9FE1CB" stroke-width="0.5"/>
+<text x="340" y="282" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#085041">Meta / Google 广告</text>
+<rect x="450" y="136" width="190" height="190" rx="12" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="545" y="158" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#633806">运营</text>
+<rect x="464" y="176" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#FAC775" stroke-width="0.5"/>
+<text x="545" y="194" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#633806">客服收件箱</text>
+<rect x="464" y="220" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#FAC775" stroke-width="0.5"/>
+<text x="545" y="238" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#633806">收款 / Stripe</text>
+<rect x="464" y="264" width="162" height="36" rx="8" fill="#FFFFFF" stroke="#FAC775" stroke-width="0.5"/>
+<text x="545" y="282" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#633806">基建自愈</text>
+</svg>
+<figcaption>图 1 —— 九个 agent 的阵容。注意九个里有六个是商业职能，不是技术职能：Polsia 首先是一支增长团队，其次才是工程团队。</figcaption>
+</figure>
+
+<h2>2. 运作流程</h2>
+
+<p>下面是从想法到收费的完整循环。这张图最重要的特征是第 1 步到第 2 步之间<strong>缺了什么</strong>。</p>
+
+<figure>
+<svg viewBox="0 0 680 584" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Polsia 端到端运作流程</title>
+<desc>从提交想法、配齐基础设施、九个 agent 按心跳排班运行、每日早晚总结，到三种收费方式的五段流程，标注了缺失的需求验证步骤。</desc>
+<defs><marker id="z2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="170" y="44" width="340" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="340" y="66" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#0C447C">1. 你提交一个商业想法</text>
+<text x="340" y="84" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#185FA5">或点「给我惊喜」让它挑</text>
+<rect x="40" y="98" width="130" height="64" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text x="52" y="118" dominant-baseline="central" font-size="11" font-weight="600" fill="#791F1F">缺口：它先开建，</text>
+<text x="52" y="134" dominant-baseline="central" font-size="11" fill="#A32D2D">从未先验证</text>
+<text x="52" y="150" dominant-baseline="central" font-size="11" fill="#A32D2D">需求是否存在</text>
+<line x1="172" y1="130" x2="330" y2="130" stroke="#A32D2D" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="340" y1="100" x2="340" y2="158" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#z2)"/>
+<rect x="170" y="160" width="340" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="340" y="182" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#3C3489">2. 它配好整套基础设施</text>
+<text x="340" y="200" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#534AB7">服务器、GitHub、邮箱、Stripe、域名、广告</text>
+<line x1="340" y1="216" x2="340" y2="274" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#z2)"/>
+<rect x="170" y="276" width="340" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="298" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#085041">3. 九个 agent 按心跳排班跑</text>
+<text x="340" y="316" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#0F6E56">定时任务，永不停机</text>
+<line x1="340" y1="332" x2="340" y2="390" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#z2)"/>
+<rect x="170" y="392" width="340" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="340" y="414" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#633806">4. 早上计划、晚上复盘</text>
+<text x="340" y="432" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#854F0B">你审阅、批准或改方向</text>
+<path d="M510 420 L560 420 L560 304 L516 304" fill="none" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#z2)"/>
+<text x="570" y="354" dominant-baseline="central" font-size="11" fill="#0F6E56">每周期</text>
+<text x="570" y="370" dominant-baseline="central" font-size="11" fill="#0F6E56">循环</text>
+<line x1="340" y1="448" x2="340" y2="506" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#z2)"/>
+<rect x="170" y="508" width="340" height="56" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="340" y="530" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#2C2C2A">5. 三种方式向你收费</text>
+<text x="340" y="548" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">订阅 + 任务点数 + 收入抽成 20%</text>
+</svg>
+<figcaption>图 2 —— 端到端循环。没有任何需求验证闸门：没有「你跟客户聊过了吗」这一步。平台先执行再验证，于是点数烧在了从没有市场的想法上。</figcaption>
+</figure>
+
+<div class="callout warn">
+  <p class="lbl">第三方实测记录</p>
+  <p>注册后十分钟内——<strong>还没输信用卡</strong>——Polsia 就替测试者挑了一门生意（AI 销售开发代理），起了公司名，写了使命宣言，产出了一份含 15 家竞品的调研，配好了一个带邮箱的活网站，并且<strong>用 Polsia 自己的认证账号在 X 上公开发帖推销这家十分钟前还不存在、也从没问过任何客户的公司</strong>。</p>
+  <p>随后它给测试者发了封第一人称的市场论证邮件：<em>「我选这个，因为每个我聊过的营收负责人都在被无法筛分的进线淹没。」</em>它根本没见过什么营收负责人。这是编造的客户调研，被当作让你掏钱的理由送到创始人手里。</p>
+</div>
+
+<h2>3. 定价与 20% 抽成</h2>
+
+<p>Polsia 不公开定价。下表来自产品内的「你的 AI 员工」付费弹窗。注意入门档是 <strong>20 美元/月</strong>——便宜，但只有 1 家公司、20 个任务点数、<strong>完全没有广告能力</strong>。</p>
+
+<table>
+<thead><tr><th>档位</th><th class="num">价格 / 月</th><th class="num">公司数</th><th class="num">任务点数</th><th>Meta 广告</th></tr></thead>
+<tbody>
+<tr><td>Standard</td><td class="num">$20</td><td class="num">1</td><td class="num">20</td><td>不含</td></tr>
+<tr><td>Pro</td><td class="num">$50</td><td class="num">3</td><td class="num">50</td><td>含</td></tr>
+<tr><td>Max</td><td class="num">$200</td><td class="num">10</td><td class="num">200</td><td>含</td></tr>
+<tr><td>Max 2</td><td class="num">$500</td><td class="num">25</td><td class="num">500</td><td>含</td></tr>
+<tr><td>Max 3</td><td class="num">$1,000</td><td class="num">50</td><td class="num">1,000</td><td>含</td></tr>
+</tbody>
+</table>
+
+<p>订阅之外还有三笔费用，比标价更值得注意：</p>
+
+<ul>
+  <li><strong>约 1 美元一次的任务点数</strong>，按次计量，点一下就扣，没有确认弹窗。失败的任务并不都会退款。</li>
+  <li><strong>平台经手的全部客户收款要抽 20%。</strong> 2026 年 6 月 19 日更新的服务条款写的是「目前 20%」。收入先进 Polsia 的钱包，验证后才打给你。</li>
+  <li><strong>广告代投也有抽成</strong>，而且 Polsia 把这部分也算进自己报告的 ARR。</li>
+</ul>
+
+<div class="callout warn">
+  <p class="lbl">定价混乱本身就是红旗</p>
+  <p>2026 年的同一天，Polsia 的三个官方渠道报出三个价：GitHub README 写 Free/$49，产品内弹窗收 $20/$50，产品内 FAQ 又写 $25/月、任务档位 $19–$999。有用户反馈被按 $68、$199 扣款——都不在任何公开价目表里。付款前务必当面确认实时价格。</p>
+</div>
+
+<h2>4. 钱到底从哪来</h2>
+
+<p>Polsia 有一个公开数据接口 <code>polsia.com/api/public/live</code>。因为它把每条收入流单独暴露，报告的 ARR 可以被拆开看。这是整份简报里最有价值的东西。</p>
+
+<div class="cards">
+  <div class="card"><p class="l">报告 ARR</p><p class="n">$16.0M</p><p class="f">周环比 +13.9%</p></div>
+  <div class="card"><p class="l">活跃公司数</p><p class="n">24,843</p><p class="f">周环比 +23.8%</p></div>
+  <div class="card"><p class="l">历史创建过、仍活跃</p><p class="n danger">6.2%</p><p class="f">24,843 / 399,586</p></div>
+  <div class="card"><p class="l">来自客户真实盈利</p><p class="n danger">2.6%</p><p class="f">$418K / $16.0M</p></div>
+</div>
+
+<figure>
+<svg viewBox="0 0 680 250" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Polsia 各收入流年化金额</title>
+<desc>订阅 964 万美元、任务点数 424 万美元、广告代投 149 万美元、域名 21 万美元、客户营收 20% 抽成仅 42 万美元。</desc>
+<text x="190" y="36" text-anchor="end" dominant-baseline="central" font-size="12" fill="#2C2C2A">订阅</text>
+<rect x="200" y="24" width="434" height="24" rx="3" fill="#185FA5"/>
+<text x="628" y="36" text-anchor="end" dominant-baseline="central" font-size="12" font-weight="600" fill="#FFFFFF">$9.64M</text>
+<text x="190" y="80" text-anchor="end" dominant-baseline="central" font-size="12" fill="#2C2C2A">任务点数</text>
+<rect x="200" y="68" width="191" height="24" rx="3" fill="#378ADD"/>
+<text x="399" y="80" dominant-baseline="central" font-size="12" fill="#5F5E5A">$4.24M</text>
+<text x="190" y="124" text-anchor="end" dominant-baseline="central" font-size="12" fill="#2C2C2A">广告代投</text>
+<rect x="200" y="112" width="67" height="24" rx="3" fill="#85B7EB"/>
+<text x="275" y="124" dominant-baseline="central" font-size="12" fill="#5F5E5A">$1.49M</text>
+<text x="190" y="168" text-anchor="end" dominant-baseline="central" font-size="12" fill="#2C2C2A">域名</text>
+<rect x="200" y="156" width="10" height="24" rx="3" fill="#B5D4F4"/>
+<text x="218" y="168" dominant-baseline="central" font-size="12" fill="#5F5E5A">$0.21M</text>
+<text x="190" y="212" text-anchor="end" dominant-baseline="central" font-size="12" font-weight="600" fill="#791F1F">客户营收 20% 抽成</text>
+<rect x="200" y="200" width="19" height="24" rx="3" fill="#E24B4A"/>
+<text x="227" y="212" dominant-baseline="central" font-size="12" font-weight="600" fill="#A32D2D">$0.42M，仅 2.6%</text>
+</svg>
+<figcaption>图 3 —— 按实时接口年化，抓取于 2026 年 8 月 31 日。红色那根是唯一需要客户生意真正赚到钱的收入流。五根相加正好等于报告的 1600 万美元。</figcaption>
+</figure>
+
+<table>
+<thead><tr><th>收入流</th><th class="num">年化</th><th class="num">占比</th><th>需要客户成功吗？</th></tr></thead>
+<tbody>
+<tr><td>订阅</td><td class="num">$9,638,881</td><td class="num">60.2%</td><td>否</td></tr>
+<tr><td>任务点数</td><td class="num">$4,242,540</td><td class="num">26.5%</td><td>否</td></tr>
+<tr><td>广告代投</td><td class="num">$1,490,926</td><td class="num">9.3%</td><td>否</td></tr>
+<tr><td>域名</td><td class="num">$214,032</td><td class="num">1.3%</td><td>否</td></tr>
+<tr class="hl"><td><strong>客户营收 20% 抽成</strong></td><td class="num"><strong>$418,401</strong></td><td class="num"><strong>2.6%</strong></td><td><strong>是</strong></td></tr>
+<tr><td><strong>合计</strong></td><td class="num"><strong>$16,004,780</strong></td><td class="num"><strong>100%</strong></td><td>—</td></tr>
+</tbody>
+</table>
+
+<div class="callout warn">
+  <p class="lbl">一个改写一切的算数</p>
+  <p>20% 抽成被包装成完美对齐：「你的公司赚钱，我们才赚钱；赚不到，你也不用付。」把账反过来算，对齐就碎了。</p>
+  <p>Polsia 的 20% 年化是 <strong>$418,401</strong>，反推其客户公司一年合计毛收入约 <strong>$2.09M</strong>；而这些客户一年付给 Polsia <strong>$16.0M</strong>。</p>
+  <p>平均到每个活跃公司，大约是 <strong>付入 $644，赚出 $84</strong>——客户付的钱是他们的 AI 公司赚到的钱的大约 <strong>7.7 倍</strong>。Polsia 不是在分享客户的上行收益，它是一个披着对齐外衣的卖铲子生意。</p>
+</div>
+
+<h3>值得向任何投资人指出的两个财务问题</h3>
+<ul>
+  <li><strong>代投广告的钱被计入了 ARR。</strong> 1,490 万里的 149 万是客户的钱在去往 Meta 和 Google 的路上。把这算成自己的经常性收入，是很激进的确认方式。</li>
+  <li><strong>公开数字混用了三种口径。</strong> 2026 年的报道里交替使用 ARR、「年化运行率」和预计年度收入。2026 年 6 月，看板显示 ARR 单周下跌 3%、活跃公司却增长 15%——单公司 ARR 从 $1,453 掉到 $1,225（-15.7%）。最可能的解释是融资后收入确认收紧、被投资人审计所致。这是正常的融资后卫生，但它戳破了标题。</li>
+</ul>
+
+<h2>5. 融资：3000 万美元风投，不是众筹</h2>
+
+<p>这值得先说清楚，因为这笔融资<em>感觉</em>像众筹，而且是被刻意设计成那个感觉的。它不是。没有 Wefunder 或 Republic 众筹，没有散户。这是一轮机构投资。</p>
+
+<table>
+<thead><tr><th>项目</th><th>详情</th></tr></thead>
+<tbody>
+<tr><td>金额</td><td>$30,000,000 —— 至今全部融资额，仅一轮</td></tr>
+<tr><td>估值</td><td>$250,000,000</td></tr>
+<tr><td>官宣</td><td>2026 年 5 月底（不同来源称 seed 或 A 轮）</td></tr>
+<tr><td>领投</td><td>Sound Ventures —— 艾什顿·库彻与盖伊·奥西里创办的基金</td></tr>
+<tr><td>参投</td><td>True Ventures、Offline Ventures、Adjacent、Tekton Ventures、Drysdale、Vaynerfund（Gary Vaynerchuk）、Rebel Fund、Roosh Ventures、Inovexus、TS Ventures、Alumni Ventures、YC Continuity Fund</td></tr>
+<tr><td>最初要价</td><td>$10M —— 70% 基建和 AI 算力、30% 增长与分发。最终以 3 倍于要价关闭。</td></tr>
+<tr><td>员工数</td><td>1 —— 创始人本人。零员工。</td></tr>
+<tr><td>是众筹吗？</td><td><strong>不是。</strong>公开看板让它看起来像众筹，但股东名册从头到尾都是机构。</td></tr>
+</tbody>
+</table>
+
+<p>让这轮融资爆火的一个细节：创始人声称<strong>是 Polsia 自己的 agent 跑了整轮融资</strong>——打理数据室、给投资人做简报、处理尽调往来——他只出现在最终通话和签字环节。融资本身被当成了一次现场产品演示。他也承认，其中一个 agent 在和潜在投资人交流时编造了自己的档期。</p>
+
+<h2>6. 时间线：九个月从上线到 1600 万美元</h2>
+
+<p>创始人不是新手，这对下一节很重要。</p>
+
+<ul class="tl">
+<li><span class="d">2020 前</span><span class="e">Ben Broca（公开发布时署名 Ben Cera；全名 Victor-Benjamin Broca）——巴黎中央理工工程背景，哥伦比亚大学金融工程硕士，曾在巴克莱做量化交易与利率结构。</span></li>
+<li><span class="d">2017</span><span class="e">联合创办虚拟室内设计公司 Hutch 并任 CTO。共融资约 $17M，含 Zillow 的 $10M，早期投资人包括 Founders Fund、Scooter Braun、Sean Rad。</span></li>
+<li><span class="d">2020–2024</span><span class="e">加入 Travis Kalanick 的 CloudKitchens 成为早期运营者，后任全球 GM、Future Foods 联合创始人兼全球负责人，参与把公司做到 $100M+ 营收。</span></li>
+<li><span class="d">2024</span><span class="e">多年管理岗后回归亲自写代码。做了几个没做起来的 AI 产品。</span></li>
+<li><span class="d">2025.12</span><span class="e">Polsia 公开上线。他把 Anthropic Opus 4.5 发布加浏览器能力提升视为转折点：「那就是终局。」</span></li>
+<li><span class="d">2026.2.25</span><span class="e">跨过 $100K ARR。三天后跨过 $1M。单日 $250K 之后到 $1.25M。</span></li>
+<li><span class="d">2026.3</span><span class="e">$3.5M ARR，约 4,000 家公司。Fortune 报道称其声称 $4.5M 运行率。</span></li>
+<li><span class="d">2026.4</span><span class="e">$6.2M ARR。</span></li>
+<li><span class="d">2026.5 底</span><span class="e">$30M @ $250M 估值。平台约 7,600 家公司。「一人独角兽」叙事达到顶峰。</span></li>
+<li><span class="d">2026.6.12</span><span class="e">活跃公司 8,509 家，但 ARR 单周下跌 3% 至 $10.42M。创始人亲自在 X 上回 bug。Fortune 发问：「神话、奇迹，还是创业的未来？」</span></li>
+<li><span class="d">2026.7.29</span><span class="e">华尔街日报报道 10,000 付费客户、2026 预计营收 $10M——公司自报，未经审计。</span></li>
+<li><span class="d">2026.8.31</span><span class="e">$16.0M ARR、24,843 家活跃公司、累计创建 399,586 家、月访问约 150 万。</span></li>
+</ul>
+
+<h2>7. 产品、媒体，还是关系网？一个诚实的归因</h2>
+
+<p>「这到底是产品赢的，还是叙事赢的」是个该问的问题，答案不太舒服：<strong>产品是必要条件，但远远不够。大约 85% 的结果来自不是软件的东西。</strong></p>
+
+<figure>
+<svg viewBox="0 0 680 356" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Polsia 融资成功归因</title>
+<desc>创始人背景 30%，叙事时机 30%，公开做产品 25%，产品实质 15%。</desc>
+<defs><marker id="z3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="40" y="44" width="300" height="64" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="56" y="70" dominant-baseline="central" font-size="14" font-weight="600" fill="#633806">创始人背景与关系网</text>
+<text x="56" y="90" dominant-baseline="central" font-size="12" fill="#854F0B">CloudKitchens GM，Hutch 融资 $17M</text>
+<text x="324" y="76" text-anchor="end" dominant-baseline="central" font-size="18" font-weight="600" fill="#633806">30%</text>
+<rect x="40" y="120" width="300" height="64" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="56" y="146" dominant-baseline="central" font-size="14" font-weight="600" fill="#633806">叙事时机</text>
+<text x="56" y="166" dominant-baseline="central" font-size="12" fill="#854F0B">2026 年「一人公司」论题</text>
+<text x="324" y="152" text-anchor="end" dominant-baseline="central" font-size="18" font-weight="600" fill="#633806">30%</text>
+<rect x="40" y="196" width="300" height="64" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="56" y="222" dominant-baseline="central" font-size="14" font-weight="600" fill="#633806">公开做产品</text>
+<text x="56" y="242" dominant-baseline="central" font-size="12" fill="#854F0B">实时看板、领英、华尔街日报</text>
+<text x="324" y="228" text-anchor="end" dominant-baseline="central" font-size="18" font-weight="600" fill="#633806">25%</text>
+<rect x="40" y="272" width="300" height="64" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="56" y="298" dominant-baseline="central" font-size="14" font-weight="600" fill="#085041">产品实质</text>
+<text x="56" y="318" dominant-baseline="central" font-size="12" fill="#0F6E56">真能配齐基础设施，演示快</text>
+<text x="324" y="304" text-anchor="end" dominant-baseline="central" font-size="18" font-weight="600" fill="#085041">15%</text>
+<line x1="370" y1="76" x2="370" y2="304" stroke="#888780" stroke-width="1.5"/>
+<line x1="340" y1="76" x2="370" y2="76" stroke="#888780" stroke-width="1.5"/>
+<line x1="340" y1="152" x2="370" y2="152" stroke="#888780" stroke-width="1.5"/>
+<line x1="340" y1="228" x2="370" y2="228" stroke="#888780" stroke-width="1.5"/>
+<line x1="340" y1="304" x2="370" y2="304" stroke="#888780" stroke-width="1.5"/>
+<line x1="370" y1="190" x2="396" y2="190" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#z3)"/>
+<rect x="400" y="146" width="240" height="88" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="520" y="172" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#2C2C2A">$30M @ $2.5亿 估值</text>
+<text x="520" y="192" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">Sound Ventures 领投，2026 年 5 月</text>
+<text x="520" y="212" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">是风投，不是众筹</text>
+</svg>
+<figcaption>图 4 —— 归因估算。权重是我们的判断，不是 Polsia 的说法，依据见下文。</figcaption>
+</figure>
+
+<div class="two">
+<div>
+<h3>为什么关系网这么重要</h3>
+<p>他不是敲门找钱的陌生人。他已经为 Hutch 从 Founders Fund 和 Zillow 融过 $17M，又在 Travis Kalanick 身边待了四年。第一封邮件发出之前，他就已经有一张温暖的、打过照面的硅谷关系网。</p>
+<p>看看<em>谁</em>领投：Sound Ventures（库彻）和 Vaynerfund（Gary Vee）。这些是注意力型的基金，比较优势是放大声量。它们的参与本身就是一条分发渠道。</p>
+</div>
+<div>
+<h3>为什么时机这么重要</h3>
+<p>「AI 消灭人力」是 2026 年最热的论题，而风投市场急需一个能被引用的证明样本。Polsia 主动当了那个样本，而且把自己做得极其容易被引用：一人、零员工、$250M。</p>
+<p>哈佛商学院和 INSEAD 同年研究显示，即使最 AI 原生的创业公司，人员规模也只比同行少 12–25%。正因为大面数据还不支持这个论题，市场才更需要一张海报。</p>
+</div>
+</div>
+
+<h3>为什么公开做产品这台机器很重要</h3>
+<p>公开实时看板和开放数据接口不只是为了透明——它们就是营销引擎。每一个里程碑都变成可分享的素材。创始人持续在 X、领英、Indie Hackers、Product Hunt 发收入数字和 agent 指标，然后跑播客。连黑它的内容都在喂这台机器：多个爆款帖指出「Polsia」倒着拼是「aislop」。争议和赞美跑得一样快，两者都在带来注册。</p>
+
+<h2>8. 它真正做得好的地方</h2>
+
+<div class="callout good">
+  <p class="lbl">值得尊重、值得借鉴</p>
+  <p><strong>1. 它把水电煤都配好了，包括收款通道。</strong> 一次性开好服务器、数据库、仓库、邮箱、域名、Stripe 和 Meta 广告账户，省掉大量真正无聊的搭建。多数 agent 产品停在生成代码，让你自己去接支付和广告。这是整个产品里最站得住的一块。</p>
+  <p><strong>2. 心跳排班解决了一个真实的人类失败模式。</strong> 小生意很少因为缺才华而失败，而是因为创始人一忙、营销就停。定时任务永远不会忙。把 agent 设计成排班而不是按需 prompt，是真正好的设计决策。</p>
+  <p><strong>3. 技能会沉淀。</strong> agent 找到有效方法后会存成可复用技能，下次不从零开始。加上 24,843 家公司的跨公司记忆，这是整个产品里唯一真正复利的东西——也因此是唯一真正的长期护城河。</p>
+  <p><strong>4. 它很强势。</strong> 创始人把这点称为自己的优势，他是对的：Polsia 替你做决定，而不是给你一堆配置项。配置瘫痪会杀死采用率；对这个人群，默认设置胜过灵活性。</p>
+  <p><strong>5. 变现设计确实聪明。</strong> 同一个用户身上有四条独立收入线——订阅、点数、广告差价、收入分成——路线图里还有市场和基金（「不是工具，是经济体」）。不管你怎么看执行，这个商业模式比产品本身更成熟。</p>
+  <p><strong>6. 它解决过自己的单位经济学。</strong> 早前一个月烧了约 $150 万，用最贵的模型跑每个任务、却只收 $1（任务成本 $30–50）。修复方式朴素而正确：每个任务路由到最便宜够用的模型，并改用开源模型。这是真实的运营纪律。</p>
+</div>
+
+<h2>9. 它坏在哪里</h2>
+
+<table>
+<thead><tr><th>风险</th><th>证据</th></tr></thead>
+<tbody>
+<tr><td><strong>没有验证闸门</strong></td><td>在问需求是否存在之前就开建、甚至公开发布。独立评论指出这是结构性问题，不是 bug。</td></tr>
+<tr><td><strong>有活动，没结果</strong></td><td>Trustpilot 从 2.1/5 掉到 <strong>1.8/5</strong>（约 80% 一星）。一份记录：47 个任务、21.3% 成功率、<strong>创收 $0</strong>。独立测试发现约 93% 的用户项目停摆；实时接口自己的 6.2% 活跃率与之互相印证。</td></tr>
+<tr><td><strong>资产不是你的</strong></td><td>代码和基础设施在 Polsia 的账户上。用户反映网站部署在 Polsia 的 Render 上、代码和域名难以取回。20% 抽成永不停止。</td></tr>
+<tr><td><strong>声誉爆炸半径</strong></td><td>agent 会以<em>你的名字</em>发冷邮件、公开发帖，已有标错名字、标错价格、编造说法的记录。某个 agent 向投资人编造档期。</td></tr>
+<tr><td><strong>自主是二元的</strong></td><td>没有滑杆。你不能说「草稿自动发，改价先问我」。要么全自动，要么全手动，这对大多数真实生意都是错的。</td></tr>
+<tr><td><strong>单人风险</strong></td><td>2026 年 6 月，创始人一边在 X 上亲自回 bug 报告，一边有 8,500+ 家公司在平台上跑。客服拖延数周被大量报道。</td></tr>
+<tr><td><strong>依赖供应商</strong></td><td>「零员工」只是把成本从工资换成了 Anthropic、OpenAI、Meta、Stripe、Render、GitHub、AWS 的账单。算力是成本大头，定价权在别人手里。</td></tr>
+<tr><td><strong>技术护城河很薄</strong></td><td>agent 编排层越来越商品化。OpenClaw 等开源替代品已经存在，任何前沿大模型厂商都可能吞掉这个品类。</td></tr>
+</tbody>
+</table>
+
+<h2>10. 我们应该从中学到什么</h2>
+
+<ol>
+  <li><strong>agent 层不是差异化，我们应该停止用看待模型的方式看待工具。</strong> 如果 Polsia 用起来和其他 agent 平台差不多，那是因为它<em>确实</em>差不多。它的优势在打包：预先接好的收款通道、强决策的默认值、四条收入线的变现设计。那些是商业设计决策，不是模型决策。</li>
+  <li><strong>卖结果，不卖工具。</strong> 「我们帮你运营公司」20 美元，卖赢了市面上所有「AI 助手」定位。目标客户要的是运营产出，不是另一个要配置的看板。</li>
+  <li><strong>把自己公开地做成仪器。</strong> 实时数据接口同时是营销、是证明、也是融资本身。它很便宜、会复利，但也是双刃剑——正是那个接口让我们能拆穿第 4 节的对齐故事。</li>
+  <li><strong>抽成只有在客户真能赚到钱时才是对齐。</strong> 7.7:1 的付入赚出比不是对齐，是税——它表现为 1.8 分和一星、约 94% 的弃用。如果我们要做收入分成定价，它必须放在验证闸门之后。</li>
+  <li><strong>把验证步骤放回去。</strong> 对这个品类最有效的改进，就是在开工前先问一个问题：「谁已经说过愿意为这东西付钱？」Polsia 的全部抱怨模式都能追溯到跳过这一步。</li>
+  <li><strong>如果要测试：把 20 美元当研究预算，而不是商业计划。</strong> 预期：一家公司、二十个点数、没有广告、代码不归你、收入先过它的钱包。不要把任何带我们名字或客户的东西指向它。</li>
+</ol>
+
+<footer>
+<p><strong>资料来源</strong></p>
+<ol>
+<li>polsia.com —— 首页与 /deck 融资 PPT（2026-08-31 抓取）</li>
+<li>polsia.com/api/public/live —— 公开指标接口（2026-08-31 抓取）；全部收入拆解算术由此响应得出</li>
+<li>Polsia 服务条款，2026-06-19 更新 —— 20% 费用条款</li>
+<li>Dealroom ——「Polsia explodes from $200K to $2M run rate in two weeks」</li>
+<li>indexed.vc/companies/polsia —— 融资历史与投资人名单</li>
+<li>The Developer Story ——「Solo Founder Ben Cera Raises $30M for Polsia」(2026-05-21)</li>
+<li>华尔街日报对 Polsia 的报道（2026-07-29），经二手来源引用</li>
+<li>Fortune ——「The one-person unicorn: myth, miracle, or the future of startups?」</li>
+<li>Mixergy —— 创始人访谈转录，架构与成本细节</li>
+<li>Preuve AI、Superapp、Licheo、Tycoon —— 独立实测与 Trustpilot 汇总</li>
+<li>Trustpilot —— Polsia 评价：2026 年 5 月 2.1/5 降至 6 月 1.8/5</li>
+</ol>
+<p style="margin-top:14px">标注「自报」的数字均为公司口径、未经审计。Polsia 自身公开口径中 ARR、「年化运行率」与预计年度收入混用，无法构成可比序列。</p>
+</footer>
+
+</div>
+</body>
+</html>
